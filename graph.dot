@@ -1,0 +1,42 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] aws_db_instance.default (expand)" [label = "aws_db_instance.default", shape = "box"]
+		"[root] aws_eip.one (expand)" [label = "aws_eip.one", shape = "box"]
+		"[root] aws_internet_gateway.gw (expand)" [label = "aws_internet_gateway.gw", shape = "box"]
+		"[root] aws_network_interface.foo (expand)" [label = "aws_network_interface.foo", shape = "box"]
+		"[root] aws_network_interface.web-server-nic (expand)" [label = "aws_network_interface.web-server-nic", shape = "box"]
+		"[root] aws_route_table.prod-route-table (expand)" [label = "aws_route_table.prod-route-table", shape = "box"]
+		"[root] aws_route_table_association.a (expand)" [label = "aws_route_table_association.a", shape = "box"]
+		"[root] aws_security_group.allow_web (expand)" [label = "aws_security_group.allow_web", shape = "box"]
+		"[root] aws_subnet.my_subnet (expand)" [label = "aws_subnet.my_subnet", shape = "box"]
+		"[root] aws_subnet.subnet-1 (expand)" [label = "aws_subnet.subnet-1", shape = "box"]
+		"[root] aws_vpc.my_vpc (expand)" [label = "aws_vpc.my_vpc", shape = "box"]
+		"[root] aws_vpc.prod-vpc (expand)" [label = "aws_vpc.prod-vpc", shape = "box"]
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"]" [label = "provider[\"registry.terraform.io/hashicorp/aws\"]", shape = "diamond"]
+		"[root] aws_db_instance.default (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] aws_eip.one (expand)" -> "[root] aws_internet_gateway.gw (expand)"
+		"[root] aws_eip.one (expand)" -> "[root] aws_network_interface.web-server-nic (expand)"
+		"[root] aws_internet_gateway.gw (expand)" -> "[root] aws_vpc.prod-vpc (expand)"
+		"[root] aws_network_interface.foo (expand)" -> "[root] aws_subnet.my_subnet (expand)"
+		"[root] aws_network_interface.web-server-nic (expand)" -> "[root] aws_security_group.allow_web (expand)"
+		"[root] aws_network_interface.web-server-nic (expand)" -> "[root] aws_subnet.subnet-1 (expand)"
+		"[root] aws_route_table.prod-route-table (expand)" -> "[root] aws_internet_gateway.gw (expand)"
+		"[root] aws_route_table_association.a (expand)" -> "[root] aws_route_table.prod-route-table (expand)"
+		"[root] aws_route_table_association.a (expand)" -> "[root] aws_subnet.subnet-1 (expand)"
+		"[root] aws_security_group.allow_web (expand)" -> "[root] aws_vpc.prod-vpc (expand)"
+		"[root] aws_subnet.my_subnet (expand)" -> "[root] aws_vpc.my_vpc (expand)"
+		"[root] aws_subnet.subnet-1 (expand)" -> "[root] aws_vpc.prod-vpc (expand)"
+		"[root] aws_vpc.my_vpc (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] aws_vpc.prod-vpc (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] output.server_public_ip (expand)" -> "[root] aws_eip.one (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_db_instance.default (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_eip.one (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_network_interface.foo (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_route_table_association.a (expand)"
+		"[root] root" -> "[root] output.server_public_ip (expand)"
+		"[root] root" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)"
+	}
+}
+
